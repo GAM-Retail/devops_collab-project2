@@ -1,0 +1,234 @@
+﻿{
+  "$schema": "./devDependencies/schemas/manifestSchema.json",
+  "name": "KRERetailCommerce",
+  "description": "KRERetailCommerce",
+  "publisher": "Kreatif",
+  "version": "1.0.0.9",
+  "minimumPosVersion": "9.32.0.0",
+  "dependencies": [
+    {
+      "alias": "knockout",
+      "format": "amd",
+      "modulePath": "Libraries/knockout"
+    }
+  ],
+  "components": {
+    "resources": {
+      "name": "KRERetailCommerceResources",
+      "description": "KRERetailCommerce Resources",
+      "supportedUICultures": [ "en-US" ],
+      "fallbackUICulture": "en-US",
+      "culturesDirectoryPath": "Resources/Strings",
+      "stringResourcesFileName": "resources.resjson"
+    },
+    "create": {
+      "templatedDialogs": [
+        {
+          "name": "KREVoucherDialog",
+          "description": "Voucher Dialog",
+          "htmlPath": "Create/Dialogs/KREVoucherDialog.html",
+          "modulePath": "Create/Dialogs/KREVoucherDialogModule"
+        },
+        {
+          "name": "KREVoucherInputDialog",
+          "description": "KRE - Voucher input dialog",
+          "modulePath": "Create/Dialogs/KREVoucherInputDialog"
+        },
+        {
+          "name": "KRECustDetailMyValueDialog",
+          "description": "KRE - CustDetailMyValueDialog",
+          "htmlPath": "Controls/MyValue/KRECustDetailMyValueDialog.html",
+          "modulePath": "Controls/MyValue/KRECustDetailMyValueDialogModule"
+        },
+        {
+          "name": "KREFindMyValueDialog",
+          "description": "KRE - FindMyValueDialog input dialog",
+          "htmlPath": "Controls/MyValue/KREFindMyValueDialog.html",
+          "modulePath": "Controls/MyValue/KREFindMyValueDialog"
+        },
+        {
+          "name": "KREMyValueMessageDialog",
+          "description": "KRE - MyValueMessageDialog",
+          "htmlPath": "Controls/KREMyValueMessageDialog.html",
+          "modulePath": "Controls/KREMyValueMessageDialog"
+        },
+        {
+          "name": "KREMyValueFnOMessageDialog",
+          "description": "KRE - MyValueFnOMessageDialog",
+          "htmlPath": "Controls/KREMyValueFnOMessageDialog.html",
+          "modulePath": "Controls/KREMyValueFnOMessageDialog"
+        },
+        {
+          "name": "KREGragoOrderDialog",
+          "description": "KRE - GragoOrderDialog",
+          "htmlPath": "Controls/Grago/KREGragoOrderDialog.html",
+          "modulePath": "Controls/Grago/KREGragoOrderDialogModule"
+        },
+        {
+          "name": "KRECommerceSetupViewDialog",
+          "description": "KRE - Setup commerce",
+          "htmlPath": "Controls/Setup/KRECommerceSetupView.html",
+          "modulePath": "Controls/Setup/KRECommerceSetupViewDialog"
+        },
+        {
+          "name": "KREEventRegistrationOperationRequest",
+          "description": "KRE - Event Registration",
+          "htmlPath": "Controls/EventRegistration/KREEventRegistrationDialog.html",
+          "modulePath": "Controls/EventRegistration/KREEventRegistrationDialog"
+        },
+        {
+          "name": "KREEventRegistrationDetailOperationRequest",
+          "description": "KRE - Event Registration Detail",
+          "htmlPath": "Controls/EventRegistration/KREEventRegistrationDetailDialog.html",
+          "modulePath": "Controls/EventRegistration/KREEventRegistrationDetailDialogModule"
+        }
+      ],
+      "operations": [
+        {
+          "name": "KREVoucherOperationRequest",
+          "description": "Check Voucher Validity",
+          "operationId": "4005",
+          "operationRequestFactoryPath": "Operations/KREVoucher/KREVoucherOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/KREVoucher/KREVoucherOperationRequestHandler"
+        },
+        {
+          "name": "KREMyValueOperationReques",
+          "description": "KREMyValueOperationReques",
+          "operationId": "5030",
+          "operationRequestFactoryPath": "Operations/MyValue/KREMyValueOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/MyValue/KREMyValueOperationRequestHandler"
+        },
+        {
+          "name": "KREMyValueViewOperationRequest",
+          "description": "KREMyValueViewOperationRequest",
+          "operationId": "5040",
+          "operationRequestFactoryPath": "Operations/MyValueView/KREMyValueViewOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/MyValueView/KREMyValueViewOperationRequestHandler"
+        },
+        {
+          "name": "KREGragoOperationRequest",
+          "description": "KREGragoOperationRequest",
+          "operationId": "5010",
+          "operationRequestFactoryPath": "Operations/Grago/KREGragoOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/Grago/KREGragoOperationRequestHandler"
+        },
+        {
+          "name": "KRESetupComOperationRequest",
+          "description": "KRESetupComOperationRequest",
+          "operationId": "5050",
+          "operationRequestFactoryPath": "Operations/Setup/KRESetupComOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/Setup/KRESetupComOperationRequestHandler"
+        },
+        {
+          "name": "KREEventRegistrationOperationRequest",
+          "description": "KREEventRegistrationOperationRequest",
+          "operationId": "5060",
+          "operationRequestFactoryPath": "Operations/EventRegistration/KREEventRegistrationOperationRequestFactory",
+          "operationRequestHandlerPath": "Operations/EventRegistration/KREEventRegistrationOperationRequestHandler"
+        }
+      ],
+      "views": [
+        {
+          "name": "Create New Customer My Value View",
+          "description": "Create New Customer My Value View",
+          "pageName": "KRECreateCustMyValueView",
+          "phonePageName": "KRECreateCustMyValueView",
+          "viewDirectory": "Create/Views/",
+          "viewControllerPath": "Create/Views/KRECreateCustMyValueView"
+        },
+        {
+          "name": "My Value View Trans",
+          "description": "My Value View Trans",
+          "pageName": "KREMyValueView",
+          "phonePageName": "KREMyValueView",
+          "viewDirectory": "Views/",
+          "viewControllerPath": "Views/KREMyValueView"
+        }
+      ]
+    },
+    "extend": {
+      "triggers": [
+        {
+          "name": "KREVoucherPayment",
+          "description": "KREVoucherPayment",
+          "triggerType": "PreEndTransaction",
+          "modulePath": "TriggerHandlers/KREVoucherPayment"
+        },
+        {
+          "name": "KREVoucherPostPayment",
+          "description": "KREVoucherPostPayment",
+          "triggerType": "PostCartCheckoutTransaction",
+          "modulePath": "TriggerHandlers/KREVoucherPostPayment"
+        },
+        {
+          "name": "Set Customer my value to Cart Trans",
+          "description": "Set Customer my value to Cart Trans",
+          "triggerType": "PreCustomerSet",
+          "modulePath": "TriggerHandlers/KRESetCustToCartMyValueHandler"
+        },
+        {
+          "name": "Get original receipt id and value id",
+          "description": "Get original receipt id and value id",
+          "triggerType": "PostReturnTransaction",
+          "modulePath": "TriggerHandlers/KREReturnPointPostHandler"
+        },
+        {
+          "name": "Earning point and Return Point",
+          "description": "Get original receipt id and value id",
+          "triggerType": "PostCartCheckoutTransaction",
+          "modulePath": "TriggerHandlers/KREMyValueEarningReturnPointTrigger"
+        },
+        {
+          "name": "KREGragoPayOrder",
+          "description": "untuk gramedia.com",
+          "triggerType": "PostCartCheckoutTransaction",
+          "modulePath": "TriggerHandlers/KREGragoPayOrder"
+        },
+        {
+          "name": "KREVoidInUse",
+          "description": "update in use voucher",
+          "triggerType": "PostVoidPayment",
+          "modulePath": "TriggerHandlers/KREVoidInUse"
+        }
+      ],
+      "views": {
+        "CartView": {
+          "viewController": {
+            "name": "CartViewController",
+            "description": "CartViewController",
+            "modulePath": "ViewExtensions/Cart/CartViewController"
+          }
+        },
+        "ManageShiftsView": {
+          "appBarCommands": [
+            {
+              "name": "KREManageShiftsDisableBankDrop",
+              "description": "KREManageShiftsDisableBankDrop",
+              "modulePath": "ViewExtensions/ManageShifts/KREManageShiftsDisableBankDrop"
+            }
+          ]
+        },
+		"PaymentView": {
+      "appBarCommands": [
+        {
+          "name": "KREPaymentQRISCommand",
+          "description": "KREPaymentQRISCommand",
+          "modulePath": "ViewExtensions/Payment/KREPaymentQRISCommand"
+        },
+        {
+          "name": "KREPaymentComand",
+          "description": "KREPaymentComand",
+          "modulePath": "ViewExtensions/Payment/KREPaymentComand"
+        },
+
+        {
+          "name": "KRECloseComCommand",
+          "description": "Close connection COM Port",
+          "modulePath": "ViewExtensions/Payment/KRECloseComCommand"
+        }
+      ]
+        }
+      }
+    }
+  }
+}

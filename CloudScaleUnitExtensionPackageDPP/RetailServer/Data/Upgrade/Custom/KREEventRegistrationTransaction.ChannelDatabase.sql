@@ -1,0 +1,214 @@
+/**
+ * SAMPLE CODE NOTICE
+ * 
+ * THIS SAMPLE CODE IS MADE AVAILABLE AS IS.  MICROSOFT MAKES NO WARRANTIES, WHETHER EXPRESS OR IMPLIED,
+ * OF FITNESS FOR A PARTICULAR PURPOSE, OF ACCURACY OR COMPLETENESS OF RESPONSES, OF RESULTS, OR CONDITIONS OF MERCHANTABILITY.
+ * THE ENTIRE RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS SAMPLE CODE REMAINS WITH THE USER.
+ * NO TECHNICAL SUPPORT IS PROVIDED.  YOU MAY NOT DISTRIBUTE THIS CODE UNLESS YOU HAVE A LICENSE AGREEMENT WITH MICROSOFT THAT ALLOWS YOU TO DO SO.
+ */
+
+ -- Create the extension table to store the custom fields.
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[ext].[[KREEVENTREGISTRATIONTRANSACTION]]')AND type in (N'U')) 
+BEGIN
+ CREATE TABLE
+        [ext].[KREEVENTREGISTRATIONTRANSACTION]
+        
+    (   
+        [RECID] bigint NOT NULL,
+        [STORE] NVARCHAR(100) DEFAULT (('')),
+        [TERMINALID] NVARCHAR(100)  DEFAULT (('')),
+        [TRANSACTIONID] NVARCHAR(100) DEFAULT (('')),
+        [RECEIPTID] NVARCHAR(100) DEFAULT (('')),
+        [LINENUM] NVARCHAR(100) DEFAULT (('')),
+        [ITEMID] NVARCHAR(100) DEFAULT (('')),
+        [QTY] int DEFAULT (('')),
+        [EVENTID] NVARCHAR(100) DEFAULT (('')),
+        [CUSTNAME] NVARCHAR(100) DEFAULT (('')),
+        [CUSTPHONE] NVARCHAR(100) DEFAULT (('')),
+        [CUSTEMAIL] NVARCHAR(100) DEFAULT (('')),
+        [MYVALUEID] NVARCHAR(100) DEFAULT (('')),
+        [REPLICATIONCOUNTERFROMORIGIN] int IDENTITY(1,1) NOT NULL,
+        [ROWVERSION] int,
+        [DATAAREAID] nvarchar(4)
+        CONSTRAINT [I_KREEVENTREGISTRATIONTRANSACTION] PRIMARY KEY CLUSTERED 
+        (
+            [RECID] ASC
+        ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+    ) ON [PRIMARY]
+
+    ALTER TABLE [ext].[KREEVENTREGISTRATIONTRANSACTION] WITH CHECK ADD CHECK (([RECID] <> (0)))
+END
+GO
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON [ext].[KREEVENTREGISTRATIONTRANSACTION] TO [UsersRole];
+GO
+GRANT SELECT, INSERT, UPDATE, DELETE ON OBJECT::[ext].[KREEVENTREGISTRATIONTRANSACTION] TO [DataSyncUsersRole]
+GO
+
+---store procedure insert
+---start
+IF OBJECT_ID(N'[ext].[KREEVENTREGISTRATIONTRANSACTIONINSERT]', N'P') IS NOT NULL
+    DROP PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONINSERT]
+GO
+
+CREATE PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONINSERT]
+    @recid    bigint,
+    @store    NVARCHAR(100),
+    @terminalid  NVARCHAR(100),
+    @transactionid  NVARCHAR(100),
+    @receiptid  NVARCHAR(100), 
+    @linenum  NVARCHAR(100), 
+    @itemid  NVARCHAR(100), 
+    @qty int,
+    @eventid  NVARCHAR(100), 
+    @custname  NVARCHAR(100),
+    @custphone NVARCHAR(100),
+    @custemail NVARCHAR(100),
+	@myvalueid NVARCHAR(100),
+    @rowversion int,
+    @dataareaid NVARCHAR(4)
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    INSERT INTO
+         ext.KREEVENTREGISTRATIONTRANSACTION
+        (RECID, STORE, TERMINALID, TRANSACTIONID, RECEIPTID, LINENUM, ITEMID, QTY, EVENTID, CUSTNAME, CUSTPHONE, CUSTEMAIL, MYVALUEID, ROWVERSION, DATAAREAID)
+    OUTPUT
+        INSERTED.EVENTID
+    VALUES
+        (@recid, @store, @terminalid, @transactionid, @receiptid, @linenum, @itemid, @qty, @eventid, @custname, @custphone, @custemail, @myvalueid, @rowversion, @dataareaid)
+END;
+GO
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONINSERT] TO [UsersRole];
+GO 
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONINSERT] TO [DeployExtensibilityRole];
+GO
+-- end
+-- store procedure insert
+
+-- store procedure update
+-- start
+IF OBJECT_ID(N'[ext].[KREEVENTREGISTRATIONTRANSACTIONUPDATE]', N'P') IS NOT NULL
+    DROP PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONUPDATE]
+GO
+
+CREATE PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONUPDATE]
+    @receiptid  NVARCHAR(64),
+    @transactionid  NVARCHAR(100),
+    @itemid  NVARCHAR(100),
+    @store NVARCHAR (100),
+    @terminalid NVARCHAR(100),
+    @dataareaid NVARCHAR(4),
+    @custname  NVARCHAR(100),
+    @custphone NVARCHAR(100),
+    @custemail NVARCHAR(100),
+    @qty int,
+	@myvalueid NVARCHAR(100),
+    @recid    bigint
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    UPDATE
+        ext.KREEVENTREGISTRATIONTRANSACTION
+    SET
+        RECEIPTID = @receiptid,
+        QTY = @qty,
+        CUSTNAME = @custname,
+        CUSTPHONE = @custphone,
+        CUSTEMAIL = @custemail,
+        MYVALUEID = @myValueID
+    WHERE
+        TRANSACTIONID = @transactionid
+        AND ITEMID = @itemid AND STORE = @store AND TERMINALID = @terminalid AND DATAAREAID = @dataareaid and RECID = @recid
+END;
+GO
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONUPDATE] TO [UsersRole];
+GO
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONUPDATE] TO [DeployExtensibilityRole];
+GO
+-- end
+-- store procedure update
+
+-- store procedure delete
+-- end
+IF OBJECT_ID(N'[ext].[KREEVENTREGISTRATIONTRANSACTIONDELETE]', N'P') IS NOT NULL
+    DROP PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONDELETE]
+GO
+
+CREATE PROCEDURE [ext].[KREEVENTREGISTRATIONTRANSACTIONDELETE]
+    @transactionid  NVARCHAR(100),
+    @itemid  NVARCHAR(100),
+    @store NVARCHAR (100),
+    @terminalid NVARCHAR(100),
+    @linenum NVARCHAR (100),
+    @dataareaid NVARCHAR(4)
+AS
+BEGIN
+    SET NOCOUNT ON
+
+     DELETE FROM
+        ext.[KREEVENTREGISTRATIONTRANSACTION]
+    WHERE
+        TRANSACTIONID = @transactionid
+        AND ITEMID = @itemid AND STORE = @store AND TERMINALID = @terminalid AND LINENUM = @linenum and DATAAREAID = @dataareaid
+END;
+GO
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONDELETE] TO [UsersRole];
+GO
+
+GRANT EXECUTE ON [ext].[KREEVENTREGISTRATIONTRANSACTIONDELETE] TO [DeployExtensibilityRole];
+GO
+-- end
+-- store procedure delete
+
+
+-- store procedure select
+-- start
+IF OBJECT_ID(N'[ext].[KREGETEVENTREGISTRATIONTRANSACTION]', N'P') IS NOT NULL
+    DROP PROCEDURE [ext].[KREGETEVENTREGISTRATIONTRANSACTION]
+GO
+
+CREATE PROCEDURE [ext].[KREGETEVENTREGISTRATIONTRANSACTION]
+    @store    NVARCHAR(100),
+    @terminalid  NVARCHAR(100),
+    @transactionid  NVARCHAR(100),
+    @itemid  NVARCHAR(100),
+    @dataareaid NVARCHAR(4)
+AS
+BEGIN
+    SET NOCOUNT ON
+
+	SELECT
+        trs.STORE,
+        trs.TERMINALID,
+        trs.TRANSACTIONID,
+        trs.RECEIPTID,
+        trs.LINENUM,
+        trs.ITEMID,
+        trs.QTY,
+        trs.EVENTID,
+        trs.CUSTNAME,
+        trs.CUSTPHONE,
+        trs.CUSTEMAIL,
+        trs.MYVALUEID
+    FROM [ax].[KREEVENTREGISTRATIONTRANSACTION] trs
+	WHERE
+        trs.TRANSACTIONID = @transactionid
+        AND trs.ITEMID = @itemid AND trs.STORE = @store AND trs.TERMINALID = @terminalid and DATAAREAID = @dataareaid
+end 
+go
+
+GRANT EXECUTE ON [ext].[KREGETEVENTREGISTRATIONTRANSACTION] TO [UsersRole];
+GO
+
+GRANT EXECUTE ON [ext].[KREGETEVENTREGISTRATIONTRANSACTION] TO [DeployExtensibilityRole];
+GO
+-- end
+-- store procedure select

@@ -1,0 +1,58 @@
+﻿//======================================================================================================
+//======================================= Store Hour Sample comment. ===================================
+//======================================================================================================
+{
+  //======================== Store Hours View extensions strings. ========================
+  "string_0": "VIEW STORE HOURS",
+  "_string_0.comment": "Store hours title label.",
+
+  //======================== Column names.  ========================
+  "string_1": "WEEK DAY",
+  "_string_1.comment": "Week day column name.",
+
+  "string_2": "OPEN HOUR",
+  "_string_2.comment": "Store open hour column name.",
+
+  "string_3": "CLOSE HOUR",
+  "_string_3.comment": "Store close hour column name.",
+
+  "string_4": "Update",
+  "_string_4.comment": "Update button on store hours dialog.",
+
+  "string_5": "Cancel",
+  "_string_5.comment": "Cancel button on store hours dialog.",
+
+  //======================== View extension titles. ========================
+  "string_0001": "KRE Example View",
+  "_string_0001.comment": "The Example View's title.",
+
+  //======================== Column names.  ========================
+  "string_1001": "Id (int)",
+  "_string_1001.comment": "A column title for the int data on the Example Entity.",
+
+  "string_1002": "Name (String)",
+  "_string_1002.comment": "A column title for the string data on the Example Entity.",
+
+  "string_1003": "Extension property string data (untuk ext)",
+  "_string_1003.comment": "A column title for the extension property data on the Example Entity.",
+
+  //======================== Dialog button labels. ========================
+  "string_2001": "Create",
+  "_string_2001.comment": "Create button used on a dialog for making a new entity.",
+
+  "string_2002": "Update",
+  "_string_2002.comment": "Update button used to commit changes made to an entity in an update dialog.",
+
+  "string_1006": "Delete",
+  "_string_1006.comment": "Delete button used to delete an entity instance in the list view.",
+
+  "string_2004": "Cancel",
+  "_string_2004.comment": "Cancel button shared across dialogs.",
+
+  "string_2005": "OK",
+  "_string_2005.comment": "OK button used to dismiss a dialog.",
+
+  //======================== Command labels. ========================
+  "string_3001": "Ping Test",
+  "_string_3001.comment": "A button label used in the app bar, when pressed two unbound endpoints are pinged."
+}
